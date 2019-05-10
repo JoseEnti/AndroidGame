@@ -9,22 +9,22 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 
-public class FirstLevel extends ApplicationAdapter
+public class FirstLevel extends AbstractScreen
 {
     private SpriteBatch batch;
     private Texture ship;
     private Texture skyBox;
-    private Animation<TextureRegion> animation;
+    private int level;
     private Shape player;
-    private float elapsed;
 
-    public FirstLevel()
+    FirstLevel(Integer level)
     {
-
+        super();
+        this.level = level;
     }
 
     @Override
-    public void create ()
+    public void buildStage()
     {
         batch = new SpriteBatch();
 
@@ -33,13 +33,14 @@ public class FirstLevel extends ApplicationAdapter
         //animation = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP, Gdx.files.internal("pepe.gif").read());
 
         player = new Shape(0,0, ship);
+        addActor(player);
 
         InputProcessor p = new InputProcessor(player);
         Gdx.input.setInputProcessor(p);
     }
 
     @Override
-    public void render ()
+    public void draw ()
     {
         //elapsed += Gdx.graphics.getDeltaTime();
         Gdx.gl.glClearColor(1, 0, 0, 1);

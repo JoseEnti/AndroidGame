@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
 import com.mygdx.game.MainMenu;
+import com.mygdx.utils.CreateGame;
 
 public class HtmlLauncher extends GwtApplication {
 
@@ -34,10 +35,10 @@ public class HtmlLauncher extends GwtApplication {
         // class ResizeListener implements ResizeHandler {
         //     @Override
         //     public void onResize(ResizeEvent event) {
-        //         int width = event.getWidth() - PADDING;
-        //         int height = event.getHeight() - PADDING;
-        //         getRootPanel().setWidth("" + width + "px");
-        //         getRootPanel().setHeight("" + height + "px");
+        //         int width = event.getWidth() - PADtDING;
+        //        //         int height = event.getHeight() - PADDING;
+        //        //         getRootPanel().setWidth("" + width + "px");
+        //        //         getRootPanel().setHeight("" + heigh + "px");
         //         getApplicationListener().resize(width, height);
         //         Gdx.graphics.setWindowedMode(width, height);
         //     }
@@ -46,6 +47,6 @@ public class HtmlLauncher extends GwtApplication {
 
         @Override
         public ApplicationListener createApplicationListener () {
-                return new MainMenu();
+                return new CreateGame();
         }
 }
