@@ -6,7 +6,7 @@ public enum ScreenEnum
     {
         public AbstractScreen getScreen()
         {
-            return new MainMenu();
+
         }
     },
     GAME
