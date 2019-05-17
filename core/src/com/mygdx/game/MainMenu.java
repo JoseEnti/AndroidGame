@@ -37,14 +37,21 @@ public class MainMenu extends AbstractScreen
 	@Override
 	public void buildStage()
 	{
+		Gdx.input.setInputProcessor(mainMenu);
 		//Assign actors to the stage
 		Image bg = new Image(background);
 
 		playBtn = UIFactory.createButton(playButton);
+		playBtn.setWidth(100);
+		playBtn.setHeight(100);
 		playBtn.setPosition(getWidth() / 2, 120.f, Align.center);
 
 		exitBtn = UIFactory.createButton(exitButton);
+		exitBtn.setWidth(100);
+		exitBtn.setHeight(100);
 		exitBtn.setPosition(getWidth() / 2, 60.f, Align.center);
+
+		mainMenu.addActor(bg);
 
 		playBtn.addListener(UIFactory.createListener(ScreenEnum.GAME));
 
@@ -52,22 +59,24 @@ public class MainMenu extends AbstractScreen
 				new InputListener()
 				{
 					@Override
-					public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+					public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
+					{
 						Gdx.app.exit();
 						return false;
 					}
 				});
 
-		mainMenu.addActor(bg);
 		mainMenu.addActor(playBtn);
 		mainMenu.addActor(exitBtn);
-		}
+	}
 
 	@Override
 	public void render(float delta)
 	{
 		mainMenu.act();
 		mainMenu.draw();
+
+
 	}
 
 	@Override
