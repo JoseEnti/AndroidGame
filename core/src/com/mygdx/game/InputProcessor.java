@@ -15,8 +15,10 @@ public class InputProcessor extends InputAdapter {
     @Override
     public boolean keyDown(int keycode)
     {
+        System.out.print("entra");
         if(keycode == Input.Keys.W)
         {
+            System.out.print("WWWWWWWWWW");
             int y = player.getPosY();
             y += 3;
 
@@ -24,6 +26,7 @@ public class InputProcessor extends InputAdapter {
         }
         if(keycode == Input.Keys.S)
         {
+            System.out.print("SSSSSSSSSSS");
             int y = player.getPosY();
             y -= 3;
 

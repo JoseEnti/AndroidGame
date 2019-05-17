@@ -10,7 +10,11 @@ public class Shape extends Actor
     private int posY;
     private Texture texture;
 
-    public Shape(int x, int y, Texture newTexture){posX = x; posY = y; texture = newTexture;}
+    public Shape(int x, int y, Texture newTexture){
+        posX = x;
+        posY = y;
+        texture = newTexture;
+    }
 
     public void setPosX(int newPosX){posX = newPosX;}
     public int getPosX(){return posX;}
@@ -23,7 +27,8 @@ public class Shape extends Actor
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        super.draw(batch, parentAlpha);
+
+        batch.draw(texture,posX,posY);
     }
 
     @Override

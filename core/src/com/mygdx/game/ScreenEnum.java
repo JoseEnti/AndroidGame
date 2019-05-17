@@ -18,7 +18,7 @@ public enum ScreenEnum
         @Override
         public AbstractScreen getScreen(Object... params)
         {
-            return new FirstLevel((Integer) params[0]);
+            return new FirstLevel();
         }
     };
 

@@ -17,7 +17,7 @@ public class Enemy1 extends Actor{
 
     private boolean hasCollided;
 
-    public void Act()
+    public void act()
     {
         posX--;
         bounds.setPosition(posX,posY);
@@ -34,6 +34,8 @@ public class Enemy1 extends Actor{
 
 
     }
+
+
 
     public void setPosX(int newPosX){posX = newPosX;}
     public int getPosX(){return posX;}
