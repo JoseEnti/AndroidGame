@@ -1,5 +1,7 @@
 package com.mygdx.utils;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -17,14 +19,19 @@ public class UIFactory
                                 new TextureRegion(texture) ) );
     }
 
-    public static InputListener createListener(final ScreenEnum dstScreen, final Object... params) {
-        return
-                new InputListener() {
+    public static InputListener createListener(final ScreenEnum dstScreen, final Object... params)
+    {
+        System.out.println("test");
+        return new InputListener()
+                {
                     @Override
-                    public boolean touchDown(InputEvent event, float x,
-                                             float y, int pointer, int button) {
-                        ScreenManager.getInstance().showScreen(dstScreen, params);
-                        return false;
+                    public boolean keyDown(InputEvent event, int keycode) {
+                        if(keycode == Input.Keys.W)
+                        {
+                            System.out.println("Esto funciona");
+                            return false;
+                        }
+                        return true;
                     }
                 };
     }

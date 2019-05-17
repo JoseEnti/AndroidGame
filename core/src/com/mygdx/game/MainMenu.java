@@ -3,6 +3,8 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -24,6 +26,8 @@ public class MainMenu extends AbstractScreen
 	private Stage mainMenu;
 	private ImageButton playBtn;
 	private ImageButton exitBtn;
+	float x;
+	float y;
 
 	public MainMenu()
 	{
@@ -38,6 +42,7 @@ public class MainMenu extends AbstractScreen
 	public void buildStage()
 	{
 		Gdx.input.setInputProcessor(mainMenu);
+
 		//Assign actors to the stage
 		Image bg = new Image(background);
 
@@ -54,7 +59,6 @@ public class MainMenu extends AbstractScreen
 		mainMenu.addActor(bg);
 
 		playBtn.addListener(UIFactory.createListener(ScreenEnum.GAME));
-
 		exitBtn.addListener(
 				new InputListener()
 				{
@@ -64,7 +68,10 @@ public class MainMenu extends AbstractScreen
 						Gdx.app.exit();
 						return false;
 					}
-				});
+				}
+		);
+		x = playBtn.getX();
+		y = playBtn.getY();
 
 		mainMenu.addActor(playBtn);
 		mainMenu.addActor(exitBtn);
@@ -73,10 +80,7 @@ public class MainMenu extends AbstractScreen
 	@Override
 	public void render(float delta)
 	{
-		mainMenu.act();
 		mainMenu.draw();
-
-
 	}
 
 	@Override

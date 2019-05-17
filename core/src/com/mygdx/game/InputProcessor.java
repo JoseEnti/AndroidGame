@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 
@@ -10,6 +11,13 @@ public class InputProcessor extends InputAdapter {
     public InputProcessor(Shape shape)
     {
         this.player = shape;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button)
+    {
+        Gdx.app.log("my app", "pressed");
+        return true;
     }
 
     @Override
@@ -40,4 +48,5 @@ public class InputProcessor extends InputAdapter {
     {
         return false;
     }
+
 }
