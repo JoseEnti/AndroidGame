@@ -4,19 +4,28 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 
-public class InputProcessor extends InputAdapter {
+public class Procesador extends InputAdapter {
 
     private Shape player;
 
-    public InputProcessor(Shape shape)
+
+
+    public Procesador(Shape shape)
     {
         this.player = shape;
     }
 
+    public Procesador(){}
+
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button)
     {
-        Gdx.app.log("my app", "pressed");
+        Gdx.app.log("my app", ""+button);
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         return true;
     }
 

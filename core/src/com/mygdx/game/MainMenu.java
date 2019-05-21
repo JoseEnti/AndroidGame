@@ -1,14 +1,12 @@
 package com.mygdx.game;
 
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -26,8 +24,9 @@ public class MainMenu extends AbstractScreen
 	private Stage mainMenu;
 	private ImageButton playBtn;
 	private ImageButton exitBtn;
-	float x;
-	float y;
+	private BitmapFont font;
+	private float x;
+	private float y;
 
 	public MainMenu()
 	{
@@ -36,6 +35,9 @@ public class MainMenu extends AbstractScreen
 		background = new Texture(Gdx.files.internal("background.jpg"));
 		playButton = new Texture(Gdx.files.internal("playbutton.png"));
 		exitButton = new Texture(Gdx.files.internal("exitbutton.png"));
+		font = new BitmapFont();
+		font.getData().setScale(6, 6);
+		batch = new SpriteBatch();
 	}
 
 	@Override
@@ -47,18 +49,18 @@ public class MainMenu extends AbstractScreen
 		Image bg = new Image(background);
 
 		playBtn = UIFactory.createButton(playButton);
-		playBtn.setWidth(100);
-		playBtn.setHeight(100);
-		playBtn.setPosition(getWidth() / 2, 120.f, Align.center);
+		playBtn.setWidth(250);
+		playBtn.setHeight(250);
+		playBtn.setPosition(130, 720.f, Align.center);
 
 		exitBtn = UIFactory.createButton(exitButton);
-		exitBtn.setWidth(100);
-		exitBtn.setHeight(100);
-		exitBtn.setPosition(getWidth() / 2, 60.f, Align.center);
+		exitBtn.setWidth(250);
+		exitBtn.setHeight(250);
+		exitBtn.setPosition(130, 620.f, Align.center);
 
 		mainMenu.addActor(bg);
 
-		playBtn.addListener(UIFactory.createListener(ScreenEnum.GAME));
+		/*playBtn.addListener(UIFactory.createListener(ScreenEnum.GAME));
 		exitBtn.addListener(
 				new InputListener()
 				{
@@ -69,7 +71,7 @@ public class MainMenu extends AbstractScreen
 						return false;
 					}
 				}
-		);
+		);*/
 		x = playBtn.getX();
 		y = playBtn.getY();
 
@@ -81,6 +83,9 @@ public class MainMenu extends AbstractScreen
 	public void render(float delta)
 	{
 		mainMenu.draw();
+		batch.begin();
+		font.draw(batch, "Avengers: Endgame", 620, 1020);
+		batch.end();
 	}
 
 	@Override
@@ -90,5 +95,12 @@ public class MainMenu extends AbstractScreen
 		background.dispose();
 		playButton.dispose();
 		exitButton.dispose();
+		batch.dispose();
+	}
+
+	@Override
+	public boolean touchDown(int screenX, int screenY, int pointer, int button)
+	{
+		return true;
 	}
 }
