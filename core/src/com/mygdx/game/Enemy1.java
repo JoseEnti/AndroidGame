@@ -43,6 +43,7 @@ public class Enemy1 extends Actor{
     }
 
 
+
     public void setPosX(int newPosX){posX = newPosX;}
     public int getPosX(){return posX;}
 

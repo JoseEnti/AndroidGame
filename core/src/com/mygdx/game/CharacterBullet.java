@@ -21,7 +21,7 @@ public class CharacterBullet extends Actor {
     {
         texture = bulletTexture;
         posX = cPosX + 250;
-        posY = cPosY + 100;
+        posY = cPosY + 80;
 
         bounds = new Rectangle(posX, posY, texture.getWidth(), texture.getHeight());
     }

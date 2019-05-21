@@ -38,7 +38,8 @@ public class FirstLevel extends AbstractScreen
     private float timeSecondsEnemySpawning = 0f;
     private float periodEnemySpawn = 0.7f;
 
-
+    private float totalTimeInGame = 0f;
+    private float secondsToWin = 50f;
 
     public FirstLevel()
     {
@@ -102,40 +103,39 @@ public class FirstLevel extends AbstractScreen
     @Override
     public void render(float delta)
     {
-        timeSecondsEnemySpawning +=Gdx.graphics.getRawDeltaTime();
-        if(timeSecondsEnemySpawning > periodEnemySpawn){
-            timeSecondsEnemySpawning-=periodEnemySpawn;
-            enemyNormal = new Enemy1(normalEnemy);
-            firstLevel.addActor(enemyNormal);
-        }
-        if(playerHasShot)
-        {
-            timeSecondsElapsedFromShooting +=Gdx.graphics.getRawDeltaTime();
-            if(timeSecondsElapsedFromShooting > periodTillShoot) {
-                timeSecondsElapsedFromShooting-=periodTillShoot;
-                playerHasShot = false;
+        totalTimeInGame +=Gdx.graphics.getRawDeltaTime();
+        if(totalTimeInGame < secondsToWin) {
+            timeSecondsEnemySpawning += Gdx.graphics.getRawDeltaTime();
+            if (timeSecondsEnemySpawning > periodEnemySpawn) {
+                timeSecondsEnemySpawning -= periodEnemySpawn;
+                enemyNormal = new Enemy1(normalEnemy);
+                firstLevel.addActor(enemyNormal);
             }
+            if (playerHasShot) {
+                timeSecondsElapsedFromShooting += Gdx.graphics.getRawDeltaTime();
+                if (timeSecondsElapsedFromShooting > periodTillShoot) {
+                    timeSecondsElapsedFromShooting -= periodTillShoot;
+                    playerHasShot = false;
+                }
+            }
+
+
+            if (goingUp) {
+                int y = player.getPosY();
+                y += 7;
+
+                player.setPosY(y);
+            } else if (goingDown) {
+                int y = player.getPosY();
+                y -= 7;
+
+                player.setPosY(y);
+            }
+
+            firstLevel.act();
+            firstLevel.draw();
         }
-
-
-        if(goingUp)
-        {
-            int y = player.getPosY();
-            y += 7;
-
-            player.setPosY(y);
-        }
-        else if(goingDown)
-        {
-            int y = player.getPosY();
-            y -= 7;
-
-            player.setPosY(y);
-        }
-
-        firstLevel.act();
-        firstLevel.draw();
-
+        
     }
 
     @Override
