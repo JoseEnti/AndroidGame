@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
@@ -17,11 +18,7 @@ public class Enemy1 extends Actor{
 
     private boolean hasCollided;
 
-    public void act()
-    {
-        posX--;
-        bounds.setPosition(posX,posY);
-    }
+
    private Random random = new Random();
 
     public Enemy1(Texture newTexture)
@@ -34,7 +31,16 @@ public class Enemy1 extends Actor{
 
 
     }
+    public void draw(Batch batch, float parentAlpha) {
 
+        batch.draw(texture,posX,posY);
+    }
+    @Override
+    public void act(float delta) {
+        posX -= 6;
+        bounds.setPosition(posX,posY);
+        super.act(delta);
+    }
 
 
     public void setPosX(int newPosX){posX = newPosX;}

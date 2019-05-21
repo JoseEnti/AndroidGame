@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -33,6 +34,14 @@ public class Shape extends Actor
 
     @Override
     public void act(float delta) {
+        if(getPosY() > Gdx.graphics.getHeight() - 300)
+        {
+            setPosY(Gdx.graphics.getHeight() - 300);
+        }
+        if(getPosY() < 0)
+        {
+            setPosY(0);
+        }
         super.act(delta);
     }
 }
