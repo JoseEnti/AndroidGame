@@ -7,11 +7,19 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Event;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.mygdx.utils.UIFactory;
 
@@ -49,18 +57,16 @@ public class MainMenu extends AbstractScreen
 		Image bg = new Image(background);
 
 		playBtn = UIFactory.createButton(playButton);
-		playBtn.setWidth(250);
-		playBtn.setHeight(250);
+		playBtn.setSize(250,250);
 		playBtn.setPosition(130, 720.f, Align.center);
 
 		exitBtn = UIFactory.createButton(exitButton);
-		exitBtn.setWidth(250);
-		exitBtn.setHeight(250);
+		exitBtn.setSize(250,250);
 		exitBtn.setPosition(130, 620.f, Align.center);
 
 		mainMenu.addActor(bg);
 
-		/*playBtn.addListener(UIFactory.createListener(ScreenEnum.GAME));
+		playBtn.addListener(UIFactory.createListener(ScreenEnum.GAME));
 		exitBtn.addListener(
 				new InputListener()
 				{
@@ -71,9 +77,7 @@ public class MainMenu extends AbstractScreen
 						return false;
 					}
 				}
-		);*/
-		x = playBtn.getX();
-		y = playBtn.getY();
+		);
 
 		mainMenu.addActor(playBtn);
 		mainMenu.addActor(exitBtn);
@@ -101,6 +105,7 @@ public class MainMenu extends AbstractScreen
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button)
 	{
+
 		return true;
 	}
 }
