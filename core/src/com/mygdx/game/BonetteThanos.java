@@ -4,13 +4,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import java.util.Random;
 
 import javax.xml.soap.Text;
 
-public class BonetteThanos extends Actor {
+public class BonetteThanos extends Actor
+{
     private float posX;
     private float posY;
     private final float maxH = Gdx.graphics.getHeight();
@@ -23,6 +25,8 @@ public class BonetteThanos extends Actor {
     private Random random = new Random();
     int thanosLife = 1000;
     boolean firsttime = true;
+    private Rectangle bounds;
+
     public BonetteThanos(Texture newTexture, Texture assTexture, Texture finalGamba)
     {
         texture = newTexture;
@@ -30,6 +34,8 @@ public class BonetteThanos extends Actor {
         finalTexture = finalGamba;
         posX = (int)maxW;
         posY = maxH / 3;
+
+        bounds = new Rectangle(posX, posY, newTexture.getWidth(), newTexture.getHeight());
     }
 
     public void act(float delta)
@@ -109,7 +115,7 @@ public class BonetteThanos extends Actor {
     }
     public void draw(Batch batch, float parentAlpha)
     {
-        //bounds.setPosition(posX,posY);
+        bounds.setPosition(posX,posY);
         batch.draw(texture,posX,posY);
 
     }
@@ -118,4 +124,6 @@ public class BonetteThanos extends Actor {
         thanosLife -= 5;
 
     }
+
+    public Rectangle getBounds(){return bounds;}
 }

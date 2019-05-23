@@ -88,7 +88,6 @@ public class DefeatScreen extends AbstractScreen
         gameOverExit.dispose();
         gameOverRestart.dispose();
         background.dispose();
-        endgame.dispose();
         defeatScreen.dispose();
         music.dispose();
     }

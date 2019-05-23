@@ -85,4 +85,6 @@ public class Enemy1 extends Actor
     public Texture getTexture(){return texture;}
 
     public Rectangle getBounds() {return bounds;}
+
+
 }

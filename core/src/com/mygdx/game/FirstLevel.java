@@ -22,6 +22,7 @@ import com.mygdx.utils.ScreenManager;
 import com.mygdx.utils.UIFactory;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import javax.xml.soap.Text;
 
@@ -57,6 +58,7 @@ public class FirstLevel extends AbstractScreen
 
     private Music music;
     private Sound playerShotSound;
+    private Sound nigga;
 
     private BitmapFont score;
 
@@ -96,6 +98,8 @@ public class FirstLevel extends AbstractScreen
         manager.load("enemyShot.atlas",TextureAtlas.class);
         manager.load("nibba.mp3", Music.class);
         manager.load("oof.mp3", Sound.class);
+        manager.load("nibba_lamar.mp3", Sound.class);
+        manager.load("nibba_lamar.mp3", Sound.class);
         manager.finishLoading();
 
         character = manager.get("character01.png");
@@ -105,6 +109,7 @@ public class FirstLevel extends AbstractScreen
 
         music = manager.get("nibba.mp3");
         playerShotSound = manager.get("oof.mp3");
+        nigga = manager.get("nibba_lamar.mp3");
 
         score = new BitmapFont();
         score.getData().setScale(2,2);
@@ -133,7 +138,7 @@ public class FirstLevel extends AbstractScreen
     @Override
     public void render(float delta)
     {
-        totalTimeInGame +=Gdx.graphics.getRawDeltaTime();
+        totalTimeInGame += Gdx.graphics.getRawDeltaTime();
 
         if(totalTimeInGame < secondsToWin)
         {
@@ -178,6 +183,9 @@ public class FirstLevel extends AbstractScreen
             if(listOfEnemies.get(i).getBounds().overlaps(player.getBounds()))
             {
                 player.remove();
+                nigga.play();
+                ScreenManager.getInstance().showScreen(ScreenEnum.DEFEAT);
+
             }
         }
         //Comprobar que el jugador ataca al enemigo

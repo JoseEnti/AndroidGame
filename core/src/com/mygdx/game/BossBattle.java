@@ -38,14 +38,18 @@ public class BossBattle extends AbstractScreen {
     private Stage BossBattle;
     private Music music;
     private Sound playerShotSound;
-    private ArrayList<Rectangle>listOfBullets;
+    private ArrayList<CharacterBullet>listOfBullets;
+    private ArrayList<ThanosHolyButthole>listOfThanosBullets;
     private BitmapFont score;
+    private Sound nigga;
+
     public BossBattle()
     {
         batch = new SpriteBatch();
 
 
-        listOfBullets = new ArrayList<Rectangle>();
+        listOfBullets = new ArrayList<CharacterBullet>();
+        listOfThanosBullets = new ArrayList<ThanosHolyButthole>();
         BossBattle = new Stage();
 
         manager = new AssetManager();
@@ -60,6 +64,7 @@ public class BossBattle extends AbstractScreen {
         manager.load("enemyShot.atlas",TextureAtlas.class);
         manager.load("bossTheme.mp3", Music.class);
         manager.load("oof.mp3", Sound.class);
+        manager.load("nibba_lamar.mp3", Sound.class);
         manager.finishLoading();
 
         character = manager.get("character01.png");
@@ -70,6 +75,7 @@ public class BossBattle extends AbstractScreen {
         ass = manager.get("thanosAss.jpg");
         music = manager.get("bossTheme.mp3");
         playerShotSound = manager.get("oof.mp3");
+        nigga = manager.get("nibba_lamar.mp3");
 
         score = new BitmapFont();
     }
@@ -85,13 +91,9 @@ public class BossBattle extends AbstractScreen {
 
         boss = new BonetteThanos(finalBoss, ass, finalfinalBoss);
 
-
-
         BossBattle.addActor(bg);
         BossBattle.addActor(player);
         BossBattle.addActor(boss);
-
-
 
         Gdx.input.setInputProcessor(BossBattle);
 
@@ -101,7 +103,8 @@ public class BossBattle extends AbstractScreen {
 
     }
     @Override
-    public void render(float delta) {
+    public void render(float delta)
+    {
         if (playerHasShot)
         {
             timeSecondsElapsedFromShooting += Gdx.graphics.getRawDeltaTime();
@@ -127,7 +130,24 @@ public class BossBattle extends AbstractScreen {
         BossBattle.act();
         BossBattle.draw();
 
+        for(int i = 0; i < listOfThanosBullets.size(); i++)
+        {
+            /*if(listOfThanosBullets.get(i).getBounds().overlaps(player.getBounds()))
+            {
+                player.remove();
+                nigga.play();
+                ScreenManager.getInstance().showScreen(ScreenEnum.DEFEAT);
 
+            }*/
+        }
+        //Comprobar que el jugador ataca al enemigo
+        for(int i = 0; i < listOfBullets.size(); i++)
+        {
+            if(listOfBullets.get(i).getBounds().overlaps(boss.getBounds()))
+            {
+
+            }
+        }
     }
     @Override
     public void dispose()
@@ -160,7 +180,7 @@ public class BossBattle extends AbstractScreen {
             playerHasShot = true;
             bullet = new CharacterBullet(player.getPosX(),player.getPosY(),characterBullet);
             playerShotSound.play(0.3f);
-            listOfBullets.add(bullet.getBounds());
+            listOfBullets.add(bullet);
             BossBattle.addActor(bullet);
         }
         if(keyCode == Input.Keys.ESCAPE)
