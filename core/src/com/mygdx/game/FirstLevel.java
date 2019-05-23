@@ -105,6 +105,7 @@ public class FirstLevel extends AbstractScreen
         playerShotSound = manager.get("oof.mp3");
 
         score = new BitmapFont();
+        score.getData().setScale(2,2);
     }
 
     @Override
@@ -131,6 +132,7 @@ public class FirstLevel extends AbstractScreen
     public void render(float delta)
     {
         totalTimeInGame +=Gdx.graphics.getRawDeltaTime();
+
         if(totalTimeInGame < secondsToWin)
         {
             timeSecondsEnemySpawning += Gdx.graphics.getRawDeltaTime();
@@ -173,7 +175,7 @@ public class FirstLevel extends AbstractScreen
         {
             if(listOfEnemies.get(i).overlaps(player.getBounds()))
             {
-
+                player.remove();
             }
         }
         //Comprobar que el jugador ataca al enemigo
@@ -183,8 +185,8 @@ public class FirstLevel extends AbstractScreen
             if(listOfBullets.get(i).overlaps(listOfEnemies.get(j)))
             {
                 //Eliminar al enemigo que ha tocado
-                listOfBullets.remove(i);
-                listOfEnemies.remove(j);
+                //listOfBullets.remove(i);
+                //listOfEnemies.remove(j);
 
             }
         }

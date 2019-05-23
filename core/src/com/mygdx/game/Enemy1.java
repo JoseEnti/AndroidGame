@@ -21,41 +21,49 @@ public class Enemy1 extends Actor
     private Texture texture;
     private Rectangle bounds;
     private boolean hasCollided;
-    private Animation enemyShotAnimation;
-    private TextureAtlas shotEnemy;
-    private TextureRegion currentRegion;
+    private Animation<TextureRegion> enemyShotAnimation;
+    private Texture imagen;
+    private TextureRegion frameActual;
+    private TextureRegion[] regionsMovimiento;
     private AssetManager manager;
-    private float time = 0f;
+    private float time;
 
    private Random random = new Random();
 
     public Enemy1()
     {
         manager = new AssetManager();
-        manager.load("enemyShot.atlas", TextureAtlas.class);
+        manager.load("enemyShot.png", Texture.class);
         manager.finishLoading();
+        imagen = manager.get("enemyShot.png");
+
+        TextureRegion[][] tmp = TextureRegion.split(imagen,imagen.getWidth()/3, imagen.getHeight());
+
+        regionsMovimiento = new TextureRegion[3];
+        for(int i = 0; i < 3; i++)
+        {
+            regionsMovimiento[i] = tmp[0][i];
+        }
+        enemyShotAnimation = new Animation<TextureRegion>(1,regionsMovimiento);
+        time = 0f;
 
         posX = (int)maxW;
         posY = random.nextInt((int)maxH);
 
-        //bounds = new Rectangle(posX, posY, texture.getWidth(), texture.getHeight());
+        bounds = new Rectangle(posX, posY, imagen.getWidth()/3, imagen.getHeight());
 
         //El primer parámetro indica el tiempo entre frame y frame
-        shotEnemy = manager.get("enemyShot.atlas");
-        enemyShotAnimation = new Animation(1/15f, shotEnemy.findRegions("shotenemy"));
-        enemyShotAnimation.setPlayMode(Animation.PlayMode.LOOP);
     }
     public void draw(Batch batch, float parentAlpha)
     {
-        //bounds.setPosition(posX,posY);
-        batch.draw(texture,posX,posY);
-        batch.draw(currentRegion, getX(), getY());
+        bounds.setPosition(posX,posY);
+        batch.draw(frameActual, posX, posY);
     }
     @Override
     public void act(float delta)
     {
         time += delta;
-        currentRegion = (TextureRegion)enemyShotAnimation.getKeyFrame(time,true);
+        frameActual = enemyShotAnimation.getKeyFrame(time,true);
         posX -= 6;
         super.act(delta);
     }
