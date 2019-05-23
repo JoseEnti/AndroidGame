@@ -7,19 +7,23 @@ public enum ScreenEnum
         public AbstractScreen getScreen(Object... params)
         {return new MainMenu();}
     },
-    /*LEVEL_SELECT
+    DEFEAT
     {
         @Override
         public AbstractScreen getScreen(Object... params)
-        {return new LevelSelectionScreen();}
-    },*/
+        {return new DefeatScreen();}
+    },
     GAME
     {
         @Override
         public AbstractScreen getScreen(Object... params)
-        {
-            return new FirstLevel();
-        }
+        {return new FirstLevel();}
+    },
+    VICTORY
+    {
+        @Override
+        public AbstractScreen getScreen(Object... params)
+            {return new VictoryScreen();}
     };
 
     public abstract AbstractScreen getScreen(Object... params);

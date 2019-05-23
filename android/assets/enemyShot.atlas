@@ -1,0 +1,26 @@
+enemyShot.png
+size: 900, 300
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+shotenemy001
+  rotate: false
+  xy: 0, 0
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+shotenemy002
+  rotate: false
+  xy: 300, 0
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+shotenemy003
+  rotate: false
+  xy: 600, 0
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
