@@ -145,7 +145,7 @@ public class BossBattle extends AbstractScreen {
         {
             if(listOfBullets.get(i).getBounds().overlaps(boss.getBounds()))
             {
-
+                boss.takeDmg();
             }
         }
     }

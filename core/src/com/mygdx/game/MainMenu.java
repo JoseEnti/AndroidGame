@@ -109,6 +109,10 @@ public class MainMenu extends AbstractScreen {
 		{
 			Gdx.app.exit();
 		}
+		else if(keyCode == Input.Keys.B)
+		{
+			ScreenManager.getInstance().showScreen(ScreenEnum.BOSS);
+		}
 		return true;
 	}
 }

@@ -177,6 +177,10 @@ public class FirstLevel extends AbstractScreen
             firstLevel.act();
             firstLevel.draw();
         }
+        else if(totalTimeInGame >= secondsToWin)
+        {
+            ScreenManager.getInstance().showScreen(ScreenEnum.BOSS);
+        }
         //Comprobar si el enemigo toca al jugador
         for(int i = 0; i < listOfEnemies.size(); i++)
         {
