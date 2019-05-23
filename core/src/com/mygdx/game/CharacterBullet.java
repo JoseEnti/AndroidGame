@@ -33,7 +33,11 @@ public class CharacterBullet extends Actor {
     }
 
     @Override
-    public void draw(Batch batch, float parentAlpha) {
+    public void draw(Batch batch, float parentAlpha)
+    {
+        bounds.setPosition(posX,posY);
         batch.draw(texture,posX,posY);
     }
+
+    public Rectangle getBounds() {return bounds;}
 }

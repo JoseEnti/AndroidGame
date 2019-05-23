@@ -15,7 +15,6 @@ public class Enemy1 extends Actor{
     private final float maxW = Gdx.graphics.getWidth();
     private Texture texture;
     private Rectangle bounds;
-
     private boolean hasCollided;
 
 
@@ -28,17 +27,16 @@ public class Enemy1 extends Actor{
         posY = random.nextInt((int)maxH);
 
         bounds = new Rectangle(posX, posY, texture.getWidth(), texture.getHeight());
-
-
     }
-    public void draw(Batch batch, float parentAlpha) {
-
+    public void draw(Batch batch, float parentAlpha)
+    {
+        bounds.setPosition(posX,posY);
         batch.draw(texture,posX,posY);
     }
     @Override
-    public void act(float delta) {
+    public void act(float delta)
+    {
         posX -= 6;
-        bounds.setPosition(posX,posY);
         super.act(delta);
     }
 
@@ -52,4 +50,6 @@ public class Enemy1 extends Actor{
 
     public void setTexture(Texture newTexture){texture = newTexture;}
     public Texture getTexture(){return texture;}
+
+    public Rectangle getBounds() {return bounds;}
 }

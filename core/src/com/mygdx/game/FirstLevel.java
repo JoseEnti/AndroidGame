@@ -1,10 +1,9 @@
 package com.mygdx.game;
-import java.util.Timer;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -13,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.utils.Align;
 import com.mygdx.utils.UIFactory;
 
+import java.util.ArrayList;
 
 public class FirstLevel extends AbstractScreen
 {
@@ -35,14 +35,23 @@ public class FirstLevel extends AbstractScreen
     private boolean goingUp;
     private boolean goingDown;
 
-    private float timeSecondsEnemySpawning = 0f;
-    private float periodEnemySpawn = 0.7f;
+    private Rectangle playerBounds;
+    private ArrayList<Rectangle> listOfEnemies;
+    public ArrayList<Rectangle>listOfBullets;
 
+    private float timeSecondsEnemySpawning = 0f;
+    private float periodEnemySpawn = 1.3f;
     private float totalTimeInGame = 0f;
     private float secondsToWin = 50f;
 
+    private Rectangle tempData;
+
     public FirstLevel()
     {
+        listOfEnemies = new ArrayList<Rectangle>();
+        listOfBullets = new ArrayList<Rectangle>();
+
+        tempData = new Rectangle();
 
         firstLevel = new Stage();
         character = new Texture(Gdx.files.internal("character01.png"));
@@ -60,6 +69,9 @@ public class FirstLevel extends AbstractScreen
         Image bg = new Image(background);
 
         player = new Shape(50,50, character);
+        player.setWidth(100);
+        player.setHeight(100);
+        playerBounds = new Rectangle(player.getPosX(), player.getPosY(), player.getWidth(), player.getHeight());
 
         exitBtn = UIFactory.createButton(exitButton);
         exitBtn.setWidth(100);
@@ -84,48 +96,40 @@ public class FirstLevel extends AbstractScreen
         Gdx.input.setInputProcessor(p);
     }
 
-
-   /* public void draw ()
-    {
-        //elapsed += Gdx.graphics.getDeltaTime();
-       /* Gdx.gl.glClearColor(1, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        batch.begin();
-
-        batch.draw(skyBox,0,0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        batch.draw(player.getTexture(), player.getPosX(), player.getPosY(), 100, 100);
-        //batch.draw(animation.getKeyFrame(elapsed), 20.0f, 20.0f);
-
-        batch.end();
-    }*/
-
     @Override
     public void render(float delta)
     {
+        playerBounds.setPosition(player.getX(),player.getY());
         totalTimeInGame +=Gdx.graphics.getRawDeltaTime();
-        if(totalTimeInGame < secondsToWin) {
+        if(totalTimeInGame < secondsToWin)
+        {
             timeSecondsEnemySpawning += Gdx.graphics.getRawDeltaTime();
-            if (timeSecondsEnemySpawning > periodEnemySpawn) {
+            if (timeSecondsEnemySpawning > periodEnemySpawn)
+            {
                 timeSecondsEnemySpawning -= periodEnemySpawn;
                 enemyNormal = new Enemy1(normalEnemy);
+                listOfEnemies.add(enemyNormal.getBounds());
                 firstLevel.addActor(enemyNormal);
             }
-            if (playerHasShot) {
+            if (playerHasShot)
+            {
                 timeSecondsElapsedFromShooting += Gdx.graphics.getRawDeltaTime();
-                if (timeSecondsElapsedFromShooting > periodTillShoot) {
+                if (timeSecondsElapsedFromShooting > periodTillShoot)
+                {
                     timeSecondsElapsedFromShooting -= periodTillShoot;
                     playerHasShot = false;
                 }
             }
 
 
-            if (goingUp) {
+            if (goingUp)
+            {
                 int y = player.getPosY();
                 y += 7;
 
                 player.setPosY(y);
-            } else if (goingDown) {
+            } else if (goingDown)
+            {
                 int y = player.getPosY();
                 y -= 7;
 
@@ -135,7 +139,23 @@ public class FirstLevel extends AbstractScreen
             firstLevel.act();
             firstLevel.draw();
         }
-        
+        //Comprobar si el enemigo toca al jugador
+        for(int i = 0; i < listOfEnemies.size(); i++)
+        {
+            if(listOfEnemies.get(i).overlaps(playerBounds))
+            {
+                //Hacer algo cuando el jugador toca al enemigo
+            }
+        }
+        //Comprobar que el jugador ataca al enemigo
+        for(int i = 0; i < listOfBullets.size(); i++)
+        {
+            for(int j = 0; j < listOfEnemies.size(); j++)
+            if(listOfBullets.get(i).overlaps(listOfEnemies.get(j)))
+            {
+                //Eliminar al enemigo que ha tocado
+            }
+        }
     }
 
     @Override
@@ -168,13 +188,15 @@ public class FirstLevel extends AbstractScreen
         {
             playerHasShot = true;
             bullet = new CharacterBullet(player.getPosX(),player.getPosY(),characterBullet);
+            listOfBullets.add(bullet.getBounds());
             firstLevel.addActor(bullet);
         }
         return true;
     }
 
     @Override
-    public boolean keyUp(int keyCode) {
+    public boolean keyUp(int keyCode)
+    {
         if(keyCode == Input.Keys.W)
         {
             goingUp = false;
@@ -183,7 +205,6 @@ public class FirstLevel extends AbstractScreen
         {
             goingDown = false;
         }
-
         return false;
     }
 }
