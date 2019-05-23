@@ -40,8 +40,6 @@ public class Enemy1 extends Actor{
         super.act(delta);
     }
 
-
-
     public void setPosX(int newPosX){posX = newPosX;}
     public int getPosX(){return posX;}
 

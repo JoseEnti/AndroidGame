@@ -35,7 +35,6 @@ public class FirstLevel extends AbstractScreen
     private boolean goingUp;
     private boolean goingDown;
 
-    private Rectangle playerBounds;
     private ArrayList<Rectangle> listOfEnemies;
     public ArrayList<Rectangle>listOfBullets;
 
@@ -71,7 +70,6 @@ public class FirstLevel extends AbstractScreen
         player = new Shape(50,50, character);
         player.setWidth(100);
         player.setHeight(100);
-        playerBounds = new Rectangle(player.getPosX(), player.getPosY(), player.getWidth(), player.getHeight());
 
         exitBtn = UIFactory.createButton(exitButton);
         exitBtn.setWidth(100);
@@ -99,7 +97,6 @@ public class FirstLevel extends AbstractScreen
     @Override
     public void render(float delta)
     {
-        playerBounds.setPosition(player.getX(),player.getY());
         totalTimeInGame +=Gdx.graphics.getRawDeltaTime();
         if(totalTimeInGame < secondsToWin)
         {
@@ -142,9 +139,9 @@ public class FirstLevel extends AbstractScreen
         //Comprobar si el enemigo toca al jugador
         for(int i = 0; i < listOfEnemies.size(); i++)
         {
-            if(listOfEnemies.get(i).overlaps(playerBounds))
+            if(listOfEnemies.get(i).overlaps(player.getBounds()))
             {
-                //Hacer algo cuando el jugador toca al enemigo
+                System.out.println("ok bro");
             }
         }
         //Comprobar que el jugador ataca al enemigo
