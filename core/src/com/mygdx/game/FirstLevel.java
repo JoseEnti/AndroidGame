@@ -173,7 +173,7 @@ public class FirstLevel extends AbstractScreen
         {
             if(listOfEnemies.get(i).overlaps(player.getBounds()))
             {
-                System.out.println("ok bro");
+
             }
         }
         //Comprobar que el jugador ataca al enemigo
@@ -183,6 +183,9 @@ public class FirstLevel extends AbstractScreen
             if(listOfBullets.get(i).overlaps(listOfEnemies.get(j)))
             {
                 //Eliminar al enemigo que ha tocado
+                listOfBullets.remove(i);
+                listOfEnemies.remove(j);
+
             }
         }
     }

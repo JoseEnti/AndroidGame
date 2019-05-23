@@ -19,6 +19,12 @@ public enum ScreenEnum
         public AbstractScreen getScreen(Object... params)
         {return new FirstLevel();}
     },
+    BOSS
+    {
+        @Override
+        public AbstractScreen getScreen(Object... params)
+        {return new BossBattle();}
+    },
     VICTORY
     {
         @Override
