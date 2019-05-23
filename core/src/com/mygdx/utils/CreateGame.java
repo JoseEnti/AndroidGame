@@ -9,6 +9,6 @@ public class CreateGame extends Game
     public void create()
     {
         ScreenManager.getInstance().initialize(this);
-        ScreenManager.getInstance().showScreen(ScreenEnum.BOSS);
+        ScreenManager.getInstance().showScreen(ScreenEnum.GAME);
     }
 }
