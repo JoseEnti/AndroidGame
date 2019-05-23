@@ -14,7 +14,7 @@ public class CharacterBullet extends Actor {
     private final float maxW = Gdx.graphics.getWidth();
     private Texture texture;
     private Rectangle bounds;
-    private boolean alive;
+    public boolean alive = true;
 
     private boolean hasCollided;
 
@@ -31,6 +31,11 @@ public class CharacterBullet extends Actor {
     public void act(float delta) {
         if(alive) {
             posX += bulletsSpeed;
+        }
+        else
+        {
+            posX-= 12;
+            posY+= 12;
         }
         super.act(delta);
     }

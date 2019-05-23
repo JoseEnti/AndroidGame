@@ -187,7 +187,7 @@ public class FirstLevel extends AbstractScreen
             if(listOfBullets.get(i).getBounds().overlaps(listOfEnemies.get(j).getBounds()))
             {
                 listOfEnemies.get(j).dieEnemy();
-
+                listOfBullets.get(i).alive = false;
                 //Eliminar al enemigo que ha tocado
                 //listOfBullets.remove(i);
                 //listOfEnemies.remove(j);
