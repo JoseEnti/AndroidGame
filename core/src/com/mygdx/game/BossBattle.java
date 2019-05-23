@@ -20,10 +20,14 @@ public class BossBattle extends AbstractScreen {
 
     private SpriteBatch batch;
     private Texture character;
+    private Texture finalBoss;
+    private Texture finalfinalBoss;
+    private Texture ass;
     private Texture characterBullet;
     private Texture normalEnemy;
     private Texture background;
     private Shape player;
+    private BonetteThanos boss;
     private CharacterBullet bullet;
     private boolean playerHasShot = false;
     private float timeSecondsElapsedFromShooting = 0f;
@@ -31,7 +35,6 @@ public class BossBattle extends AbstractScreen {
     private boolean goingUp;
     private boolean goingDown;
     private AssetManager manager;
-    private Texture finalBoss;
     private Stage BossBattle;
     private Music music;
     private Sound playerShotSound;
@@ -50,7 +53,9 @@ public class BossBattle extends AbstractScreen {
         manager.load("character01.png",Texture.class);
         manager.load("characterbullet.png", Texture.class);
         manager.load("exitbutton.png", Texture.class);
+        manager.load("finalboss001.png", Texture.class);
         manager.load("finalboss002.png", Texture.class);
+        manager.load("thanosAss.jpg", Texture.class);
         manager.load("backgroundBoss.jpg", Texture.class);
         manager.load("enemyShot.atlas",TextureAtlas.class);
         manager.load("bossTheme.mp3", Music.class);
@@ -59,9 +64,10 @@ public class BossBattle extends AbstractScreen {
 
         character = manager.get("character01.png");
         characterBullet = manager.get("characterbullet.png");
-        finalBoss = manager.get("finalboss002.png");
+        finalBoss = manager.get("finalboss001.png");
         background = manager.get("backgroundBoss.jpg");
-
+        finalfinalBoss = manager.get("finalboss002.png");
+        ass = manager.get("thanosAss.jpg");
         music = manager.get("bossTheme.mp3");
         playerShotSound = manager.get("oof.mp3");
 
@@ -77,8 +83,15 @@ public class BossBattle extends AbstractScreen {
         player.setWidth(100);
         player.setHeight(100);
 
+        boss = new BonetteThanos(finalBoss, ass, finalfinalBoss);
+
+
+
         BossBattle.addActor(bg);
         BossBattle.addActor(player);
+        BossBattle.addActor(boss);
+
+
 
         Gdx.input.setInputProcessor(BossBattle);
 
