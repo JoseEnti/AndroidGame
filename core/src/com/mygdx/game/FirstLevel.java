@@ -99,7 +99,6 @@ public class FirstLevel extends AbstractScreen
         manager.load("nibba.mp3", Music.class);
         manager.load("oof.mp3", Sound.class);
         manager.load("nibba_lamar.mp3", Sound.class);
-        manager.load("nibba_lamar.mp3", Sound.class);
         manager.finishLoading();
 
         character = manager.get("character01.png");

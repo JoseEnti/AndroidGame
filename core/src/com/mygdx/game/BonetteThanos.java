@@ -153,13 +153,17 @@ public class BonetteThanos extends Actor
     {
         bounds.setPosition(posX,posY);
         batch.draw(texture,posX,posY);
-
     }
     public void takeDmg()
     {
         thanosLife -= 5;
-
     }
 
     public Rectangle getBounds(){return bounds;}
+
+    public void setPosX(int newPosX){posX = newPosX;}
+    public float getPosX(){return posX;}
+
+    public void setPosY(int newPosY){posY = newPosY;}
+    public float getPosY(){return posY;}
 }

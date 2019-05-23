@@ -38,7 +38,8 @@ public class Shape extends Actor
     }
 
     @Override
-    public void act(float delta) {
+    public void act(float delta)
+    {
         if(getPosY() > Gdx.graphics.getHeight() - 250)
         {
             setPosY(Gdx.graphics.getHeight() - 250);

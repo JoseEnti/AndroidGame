@@ -42,6 +42,9 @@ public class BossBattle extends AbstractScreen {
     private ArrayList<ThanosHolyButthole>listOfThanosBullets;
     private BitmapFont score;
     private Sound nigga;
+    private float timeSecondsEnemySpawning = 0f;
+    private float thanosShotTimer = .5f;
+    private Texture thanosBulletsTexture;
 
     public BossBattle()
     {
@@ -65,6 +68,7 @@ public class BossBattle extends AbstractScreen {
         manager.load("bossTheme.mp3", Music.class);
         manager.load("oof.mp3", Sound.class);
         manager.load("nibba_lamar.mp3", Sound.class);
+        manager.load("thanosBullet.png", Texture.class);
         manager.finishLoading();
 
         character = manager.get("character01.png");
@@ -76,11 +80,13 @@ public class BossBattle extends AbstractScreen {
         music = manager.get("bossTheme.mp3");
         playerShotSound = manager.get("oof.mp3");
         nigga = manager.get("nibba_lamar.mp3");
+        thanosBulletsTexture = manager.get("thanosBullet.png");
 
         score = new BitmapFont();
     }
     @Override
-    public void buildStage() {
+    public void buildStage()
+    {
         BossBattle = new Stage();
         Gdx.input.setInputProcessor(BossBattle);
         Image bg = new Image(background);
@@ -130,15 +136,24 @@ public class BossBattle extends AbstractScreen {
         BossBattle.act();
         BossBattle.draw();
 
+        timeSecondsEnemySpawning += Gdx.graphics.getRawDeltaTime();
+        if (timeSecondsEnemySpawning > thanosShotTimer)
+        {
+            timeSecondsEnemySpawning -= thanosShotTimer;
+            ThanosHolyButthole bullet = new ThanosHolyButthole(boss.getPosX(), boss.getPosY(), thanosBulletsTexture);
+            listOfThanosBullets.add(bullet);
+            BossBattle.addActor(bullet);
+        }
+
         for(int i = 0; i < listOfThanosBullets.size(); i++)
         {
-            /*if(listOfThanosBullets.get(i).getBounds().overlaps(player.getBounds()))
+            if(listOfThanosBullets.get(i).getBounds().overlaps(player.getBounds()))
             {
                 player.remove();
                 nigga.play();
                 ScreenManager.getInstance().showScreen(ScreenEnum.DEFEAT);
 
-            }*/
+            }
         }
         //Comprobar que el jugador ataca al enemigo
         for(int i = 0; i < listOfBullets.size(); i++)
@@ -146,6 +161,7 @@ public class BossBattle extends AbstractScreen {
             if(listOfBullets.get(i).getBounds().overlaps(boss.getBounds()))
             {
                 boss.takeDmg();
+                listOfBullets.get(i).alive = false;
             }
         }
     }
