@@ -6,6 +6,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Rectangle;
@@ -27,7 +28,6 @@ public class FirstLevel extends AbstractScreen
     private SpriteBatch batch;
     private Texture character;
     private Texture characterBullet;
-    private Texture normalEnemy;
     private Texture finalBoss;
     private Texture skyBox;
     private Texture background;
@@ -44,7 +44,6 @@ public class FirstLevel extends AbstractScreen
     private ArrayList<Rectangle> listOfEnemies;
     private ArrayList<Rectangle>listOfBullets;
     private AssetManager manager;
-    private TextureAtlas shotEnemy;
 
     private float timeSecondsEnemySpawning = 0f;
     private float periodEnemySpawn = 1.3f;
@@ -53,17 +52,16 @@ public class FirstLevel extends AbstractScreen
 
     private Rectangle tempData;
 
-    private Animation enemyShotAnimation;
 
     private Music music;
     private Sound playerShotSound;
 
+    private BitmapFont score;
+
     //IMPORTANTE
-    //El código de la animación de los disparos del enemigo está en las líneas: 46, 55, 77, 86, 89 y 90
-    //De esta forma se puede poner la animación de las balas en cualquier otra clase.
     //Para ejecutar las animaciones hay que pegar esto:
-    //private TextureRegion currentRegion;
-    //Dentro del act() hay que poner:
+    //private TextureRegion currentRegion; Como variable global
+    //Y dentro del act() hay que poner:
     //currentRegion = (TextureRegion)currentAnimation.getKeyFrame(time,true);
     //Siendo time: time += delta;
     //Y por último en el draw:
@@ -92,7 +90,6 @@ public class FirstLevel extends AbstractScreen
         manager.load("characterbullet.png", Texture.class);
         manager.load("exitbutton.png", Texture.class);
         manager.load("finalboss002.png", Texture.class);
-        manager.load("bullet001scaled.png", Texture.class);
         manager.load("skybox.jpg", Texture.class);
         manager.load("enemyShot.atlas",TextureAtlas.class);
         manager.load("nibba.mp3", Music.class);
@@ -102,16 +99,12 @@ public class FirstLevel extends AbstractScreen
         character = manager.get("character01.png");
         characterBullet = manager.get("characterbullet.png");
         finalBoss = manager.get("finalboss002.png");
-        normalEnemy = manager.get("bullet001scaled.png");
         background = manager.get("skybox.jpg");
-        shotEnemy = manager.get("enemyShot.atlas");
-
-        //El primer parámetro indica el tiempo entre frame y frame
-        enemyShotAnimation = new Animation(1/15f, shotEnemy.findRegions("shotenemy"));
-        enemyShotAnimation.setPlayMode(Animation.PlayMode.LOOP);
 
         music = manager.get("nibba.mp3");
         playerShotSound = manager.get("oof.mp3");
+
+        score = new BitmapFont();
     }
 
     @Override
@@ -144,7 +137,7 @@ public class FirstLevel extends AbstractScreen
             if (timeSecondsEnemySpawning > periodEnemySpawn)
             {
                 timeSecondsEnemySpawning -= periodEnemySpawn;
-                enemyNormal = new Enemy1(normalEnemy);
+                enemyNormal = new Enemy1();
                 listOfEnemies.add(enemyNormal.getBounds());
                 firstLevel.addActor(enemyNormal);
             }
@@ -200,6 +193,7 @@ public class FirstLevel extends AbstractScreen
         batch.dispose();
         character.dispose();
         background.dispose();
+        music.dispose();
     }
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button)

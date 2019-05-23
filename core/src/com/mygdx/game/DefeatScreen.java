@@ -91,7 +91,6 @@ public class DefeatScreen extends AbstractScreen
         endgame.dispose();
         defeatScreen.dispose();
         music.dispose();
-
     }
 
     @Override

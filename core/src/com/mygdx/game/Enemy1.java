@@ -1,8 +1,12 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
@@ -16,17 +20,30 @@ public class Enemy1 extends Actor{
     private Texture texture;
     private Rectangle bounds;
     private boolean hasCollided;
-
+    private Animation enemyShotAnimation;
+    private TextureAtlas shotEnemy;
+    private TextureRegion currentRegion;
+    private AssetManager manager;
+    private float time = 0f;
 
    private Random random = new Random();
 
-    public Enemy1(Texture newTexture)
+    public Enemy1()
     {
-        texture = newTexture;
+        manager = new AssetManager();
+        manager.load("enemyShot.atlas", TextureAtlas.class);
+        manager.finishLoading();
+
         posX = (int)maxW;
         posY = random.nextInt((int)maxH);
 
         bounds = new Rectangle(posX, posY, texture.getWidth(), texture.getHeight());
+
+        //El primer parámetro indica el tiempo entre frame y frame
+        enemyShotAnimation = new Animation(1/15f, shotEnemy.findRegions("shotenemy"));
+        enemyShotAnimation.setPlayMode(Animation.PlayMode.LOOP);
+
+        shotEnemy = manager.get("enemyShot.atlas");
     }
     public void draw(Batch batch, float parentAlpha)
     {
@@ -36,6 +53,8 @@ public class Enemy1 extends Actor{
     @Override
     public void act(float delta)
     {
+        time += delta;
+        currentRegion = (TextureRegion)currentAnimation.getKeyFrame(time,true);
         posX -= 6;
         super.act(delta);
     }
