@@ -22,7 +22,7 @@ public class BonetteThanos extends Actor
     private Texture ass;
     private Texture finalTexture;
     private boolean goingUp = true;
-    int bossPhase = 0;
+    public int bossPhase = 0;
     private Random random = new Random();
     int thanosLife = 1000;
     boolean firsttime = true;
@@ -115,7 +115,8 @@ public class BonetteThanos extends Actor
         {
             if(firsttime)
             {
-                thanosLife = 50;
+                thanosLife = 80;
+                firsttime = false;
             }
             if(goingUp) {
                 if(posY >= maxH - 316f)
@@ -141,7 +142,7 @@ public class BonetteThanos extends Actor
         }
         else
         {
-            posX += 23;
+            posX -= 23;
             if(posX <= maxW/4)
             {
                 ScreenManager.getInstance().showScreen(ScreenEnum.VICTORY);

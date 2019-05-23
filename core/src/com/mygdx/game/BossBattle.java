@@ -43,9 +43,9 @@ public class BossBattle extends AbstractScreen {
     private BitmapFont score;
     private Sound nigga;
     private float timeSecondsEnemySpawning = 0f;
-    private float thanosShotTimer = .5f;
+    private float thanosShotTimer = 5f;
     private Texture thanosBulletsTexture;
-
+    private boolean firstTime = true;
     public BossBattle()
     {
         batch = new SpriteBatch();
@@ -135,16 +135,20 @@ public class BossBattle extends AbstractScreen {
         }
         BossBattle.act();
         BossBattle.draw();
-
-        timeSecondsEnemySpawning += Gdx.graphics.getRawDeltaTime();
-        if (timeSecondsEnemySpawning > thanosShotTimer)
-        {
-            timeSecondsEnemySpawning -= thanosShotTimer;
-            ThanosHolyButthole bullet = new ThanosHolyButthole(boss.getPosX(), boss.getPosY(), thanosBulletsTexture);
-            listOfThanosBullets.add(bullet);
-            BossBattle.addActor(bullet);
+        if(boss.bossPhase == 1 || boss.bossPhase == 4) {
+            if(firstTime && boss.bossPhase == 4)
+            {
+                thanosShotTimer = thanosShotTimer / 2;
+                firstTime = false;
+            }
+            timeSecondsEnemySpawning += Gdx.graphics.getRawDeltaTime();
+            if (timeSecondsEnemySpawning > thanosShotTimer) {
+                timeSecondsEnemySpawning -= thanosShotTimer;
+                ThanosHolyButthole bullet = new ThanosHolyButthole(boss.getPosX(), boss.getPosY(), thanosBulletsTexture);
+                listOfThanosBullets.add(bullet);
+                BossBattle.addActor(bullet);
+            }
         }
-
         for(int i = 0; i < listOfThanosBullets.size(); i++)
         {
             if(listOfThanosBullets.get(i).getBounds().overlaps(player.getBounds()))

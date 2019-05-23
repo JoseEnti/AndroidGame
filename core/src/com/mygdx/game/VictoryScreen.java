@@ -32,11 +32,11 @@ public class VictoryScreen extends AbstractScreen
         batch = new SpriteBatch();
 
         manager = new AssetManager();
-        manager.load("background.jpg", Texture.class);
+        manager.load("toBeContinued.jpg", Texture.class);
         manager.load("avengers.mp3", Music.class);
         manager.finishLoading();
 
-        background = manager.get("background.jpg");
+        background = manager.get("toBeCountinued.jpg");
         music = manager.get("avengers.mp3");
 
         gameOverExit = new BitmapFont();

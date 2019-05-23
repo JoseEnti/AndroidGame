@@ -11,12 +11,12 @@ public class ThanosHolyButthole extends Actor
     public boolean alive = true;
     private Rectangle bounds;
     private Texture texture;
-    public float bulletsSpeed;
+    public float bulletsSpeed = 10;
 
     public ThanosHolyButthole(float cPosX, float cPosY, Texture bulletTexture)
     {
         texture = bulletTexture;
-        posX = cPosX + 250;
+        posX = cPosX;
         posY = cPosY + 80;
 
         bounds = new Rectangle(posX, posY, texture.getWidth(), texture.getHeight());
@@ -27,7 +27,7 @@ public class ThanosHolyButthole extends Actor
     {
         if(alive)
         {
-            posX += bulletsSpeed;
+            posX -= bulletsSpeed;
         }
         else
         {
