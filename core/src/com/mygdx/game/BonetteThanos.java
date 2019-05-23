@@ -29,7 +29,7 @@ public class BonetteThanos extends Actor {
         ass = assTexture;
         finalTexture = finalGamba;
         posX = (int)maxW;
-        posY = maxH / 2;
+        posY = maxH / 3;
     }
 
     public void act(float delta)
@@ -68,7 +68,7 @@ public class BonetteThanos extends Actor {
                 else {
                     posY--;
                 }
-                if(thanosLife < 70)
+                if(thanosLife < 50)
                 {
                     firsttime = true;
                     bossPhase = 2;
@@ -78,6 +78,16 @@ public class BonetteThanos extends Actor {
         else if(bossPhase == 2)
         {
 
+            if(firsttime == true) {
+                texture = ass;
+                firsttime = false;
+            }
+            posX += 1.2f;
+            if(posX >= maxW)
+            {
+                bossPhase++;
+                firsttime = true;
+            }
         }
         else if(bossPhase == 3)
         {
@@ -103,5 +113,9 @@ public class BonetteThanos extends Actor {
         batch.draw(texture,posX,posY);
 
     }
+    public void takeDmg()
+    {
+        thanosLife -= 5;
 
+    }
 }

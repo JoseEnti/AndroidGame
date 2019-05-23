@@ -19,7 +19,7 @@ public class Enemy1 extends Actor
     private final float maxH = Gdx.graphics.getHeight();
     private final float maxW = Gdx.graphics.getWidth();
     private Texture texture;
-    private Rectangle bounds;
+    public Rectangle bounds;
     private boolean hasCollided;
     private Animation<TextureRegion> enemyShotAnimation;
     private Texture imagen;
@@ -27,7 +27,7 @@ public class Enemy1 extends Actor
     private TextureRegion[] regionsMovimiento;
     private AssetManager manager;
     private float time;
-
+    public boolean alive = true;
    private Random random = new Random();
 
     public Enemy1()
@@ -64,8 +64,15 @@ public class Enemy1 extends Actor
     {
         time += delta;
         frameActual = enemyShotAnimation.getKeyFrame(time,true);
-        posX -= 6;
+        if(alive)
+            posX -= 6;
+        else
+            posX += 22;
         super.act(delta);
+    }
+    public void dieEnemy()
+    {
+        alive = false;
     }
 
     public void setPosX(int newPosX){posX = newPosX;}

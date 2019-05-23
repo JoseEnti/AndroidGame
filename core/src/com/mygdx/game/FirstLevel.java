@@ -1,6 +1,7 @@
 package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
@@ -16,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.scenes.scene2d.actions.*;
 import com.mygdx.utils.ScreenManager;
 import com.mygdx.utils.UIFactory;
 
@@ -41,8 +43,8 @@ public class FirstLevel extends AbstractScreen
     private boolean goingUp;
     private boolean goingDown;
 
-    private ArrayList<Rectangle> listOfEnemies;
-    private ArrayList<Rectangle>listOfBullets;
+    private ArrayList<Enemy1> listOfEnemies;
+    private ArrayList<CharacterBullet>listOfBullets;
     private AssetManager manager;
 
     private float timeSecondsEnemySpawning = 0f;
@@ -77,8 +79,8 @@ public class FirstLevel extends AbstractScreen
     public FirstLevel()
     {
         batch = new SpriteBatch();
-        listOfEnemies = new ArrayList<Rectangle>();
-        listOfBullets = new ArrayList<Rectangle>();
+        listOfEnemies = new ArrayList<Enemy1>();
+        listOfBullets = new ArrayList<CharacterBullet>();
 
         tempData = new Rectangle();
 
@@ -140,7 +142,7 @@ public class FirstLevel extends AbstractScreen
             {
                 timeSecondsEnemySpawning -= periodEnemySpawn;
                 enemyNormal = new Enemy1();
-                listOfEnemies.add(enemyNormal.getBounds());
+                listOfEnemies.add(enemyNormal);
                 firstLevel.addActor(enemyNormal);
             }
             if (playerHasShot)
@@ -173,7 +175,7 @@ public class FirstLevel extends AbstractScreen
         //Comprobar si el enemigo toca al jugador
         for(int i = 0; i < listOfEnemies.size(); i++)
         {
-            if(listOfEnemies.get(i).overlaps(player.getBounds()))
+            if(listOfEnemies.get(i).getBounds().overlaps(player.getBounds()))
             {
                 player.remove();
             }
@@ -182,8 +184,10 @@ public class FirstLevel extends AbstractScreen
         for(int i = 0; i < listOfBullets.size(); i++)
         {
             for(int j = 0; j < listOfEnemies.size(); j++)
-            if(listOfBullets.get(i).overlaps(listOfEnemies.get(j)))
+            if(listOfBullets.get(i).getBounds().overlaps(listOfEnemies.get(j).getBounds()))
             {
+                listOfEnemies.get(j).dieEnemy();
+
                 //Eliminar al enemigo que ha tocado
                 //listOfBullets.remove(i);
                 //listOfEnemies.remove(j);
@@ -223,7 +227,7 @@ public class FirstLevel extends AbstractScreen
             playerHasShot = true;
             bullet = new CharacterBullet(player.getPosX(),player.getPosY(),characterBullet);
             playerShotSound.play(0.3f);
-            listOfBullets.add(bullet.getBounds());
+            listOfBullets.add(bullet);
             firstLevel.addActor(bullet);
         }
         if(keyCode == Input.Keys.ESCAPE)

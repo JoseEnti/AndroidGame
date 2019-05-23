@@ -14,6 +14,7 @@ public class CharacterBullet extends Actor {
     private final float maxW = Gdx.graphics.getWidth();
     private Texture texture;
     private Rectangle bounds;
+    private boolean alive;
 
     private boolean hasCollided;
 
@@ -28,7 +29,9 @@ public class CharacterBullet extends Actor {
 
     @Override
     public void act(float delta) {
-        posX += bulletsSpeed;
+        if(alive) {
+            posX += bulletsSpeed;
+        }
         super.act(delta);
     }
 
@@ -37,6 +40,10 @@ public class CharacterBullet extends Actor {
     {
         bounds.setPosition(posX,posY);
         batch.draw(texture,posX,posY);
+    }
+    public void destroyBullet()
+    {
+
     }
 
     public Rectangle getBounds() {return bounds;}
