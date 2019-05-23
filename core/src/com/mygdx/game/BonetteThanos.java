@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.mygdx.utils.ScreenManager;
 
 import java.util.Random;
 
@@ -46,7 +47,7 @@ public class BonetteThanos extends Actor
             posX -= 0.264f;
             if(posX <= maxW - 430f)
             {
-                bossPhase = 4;
+                bossPhase = 1;
             }
         }
         else if(bossPhase == 1)
@@ -97,18 +98,53 @@ public class BonetteThanos extends Actor
         }
         else if(bossPhase == 3)
         {
+            if(firsttime = true)
+            {
+                firsttime = false;
+                texture = finalTexture;
+                thanosLife = 10000;
+            }
+            posX -= 0.264f;
+            if(posX <= maxW - 430f)
+            {
+                bossPhase ++;
+                firsttime = true;
+            }
+        }
+        else if(bossPhase == 4)
+        {
+            if(firsttime)
+            {
+                thanosLife = 50;
+            }
+            if(goingUp) {
+                if(posY >= maxH - 316f)
+                {
+                    goingUp = false;
+                }
+                else {
+                    posY += 2;
+                }
+            }
+            else {
+                if (posY <= 0) {
+                    goingUp = true;
+                } else {
+                    posY -= 2;
+                }
+            }
+            if(thanosLife <= 0)
+            {
+                bossPhase ++;
+            }
 
         }
         else
         {
-            if(firsttime == true) {
-                texture = ass;
-                firsttime = false;
-            }
-            posX += 0.2f;
-            if(posX >= maxW)
+            posX += 23;
+            if(posX <= maxW/4)
             {
-                bossPhase++;
+                ScreenManager.getInstance().showScreen(ScreenEnum.VICTORY);
             }
         }
         super.act(delta);

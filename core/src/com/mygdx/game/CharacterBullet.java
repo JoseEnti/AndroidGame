@@ -46,10 +46,7 @@ public class CharacterBullet extends Actor {
         bounds.setPosition(posX,posY);
         batch.draw(texture,posX,posY);
     }
-    public void destroyBullet()
-    {
 
-    }
 
     public Rectangle getBounds() {return bounds;}
 }
