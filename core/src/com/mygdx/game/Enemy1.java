@@ -12,7 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import java.util.Random;
 
-public class Enemy1 extends Actor{
+public class Enemy1 extends Actor
+{
     private int posX;
     private int posY;
     private final float maxH = Gdx.graphics.getHeight();
@@ -37,24 +38,24 @@ public class Enemy1 extends Actor{
         posX = (int)maxW;
         posY = random.nextInt((int)maxH);
 
-        bounds = new Rectangle(posX, posY, texture.getWidth(), texture.getHeight());
+        //bounds = new Rectangle(posX, posY, texture.getWidth(), texture.getHeight());
 
         //El primer parámetro indica el tiempo entre frame y frame
+        shotEnemy = manager.get("enemyShot.atlas");
         enemyShotAnimation = new Animation(1/15f, shotEnemy.findRegions("shotenemy"));
         enemyShotAnimation.setPlayMode(Animation.PlayMode.LOOP);
-
-        shotEnemy = manager.get("enemyShot.atlas");
     }
     public void draw(Batch batch, float parentAlpha)
     {
-        bounds.setPosition(posX,posY);
+        //bounds.setPosition(posX,posY);
         batch.draw(texture,posX,posY);
+        batch.draw(currentRegion, getX(), getY());
     }
     @Override
     public void act(float delta)
     {
         time += delta;
-        currentRegion = (TextureRegion)currentAnimation.getKeyFrame(time,true);
+        currentRegion = (TextureRegion)enemyShotAnimation.getKeyFrame(time,true);
         posX -= 6;
         super.act(delta);
     }
